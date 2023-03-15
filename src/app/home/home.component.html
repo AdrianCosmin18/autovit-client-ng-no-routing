@@ -1,0 +1,115 @@
+
+<div [ngSwitch]="view">
+
+  <div *ngSwitchCase="'home'">
+    <h1>Cars</h1>
+    <button (click)="goToAddCar()">Create New Car</button>
+    <table>
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Brand</th>
+        <th>Model</th>
+        <th>Weight</th>
+        <th>Availability</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="car" *ngFor="let car of cars" [car]="car" (emitId)="getCar($event)"></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngSwitchCase="'create'">
+    <h1>New Car</h1>
+    <form [formGroup]="myForm">
+
+      <div>
+        <label for="brand">Brand</label>
+        <input name="brand" type="text" id="brand" formControlName="brand">
+        <div class="error-div" *ngIf="brand?.invalid && brand?.dirty">
+          <small class="text-danger" *ngIf="brand?.errors?.['required']">Brand is required</small>
+          <small class="text-danger" *ngIf="brand?.errors?.['minlength']">Brand must have minim 2 letters</small>
+          <small class="text-danger" *ngIf="brand?.errors?.['pattern']">First letter must be uppercase <br> Must not contain numbers and spaces</small>
+        </div>
+      </div>
+
+      <div>
+        <label for="model">Model</label>
+        <input name="model" type="text" id="model" formControlName="model">
+        <div class="error-div" *ngIf="model?.invalid && model?.dirty">
+          <small class="text-danger" *ngIf="model?.errors?.['required']">Model is required</small>
+          <small class="text-danger" *ngIf="model?.errors?.['minlength']">Model must have minim 2 letters</small>
+          <small class="text-danger" *ngIf="model?.errors?.['pattern']">Model must not contain spaces</small>
+        </div>
+      </div>
+
+      <div>
+        <label for="weight">Weight</label>
+        <input name="weight" type="text" id="weight" formControlName="weight">
+        <div class="error-div" *ngIf="weight?.invalid && weight?.dirty">
+          <small class="text-danger" *ngIf="weight?.errors?.['required']">Weight is required</small>
+          <small class="text-danger" *ngIf="weight?.errors?.['min']">Weight must be minimum 500</small>
+          <small class="text-danger" *ngIf="weight?.errors?.['pattern']">Weight must be numeric</small>
+        </div>
+      </div>
+      <div>
+        <label for="availability">Availability</label>
+        <input name="availability" type="checkbox" id="availability" formControlName="availability">
+      </div>
+      <p>
+        <button type="submit" value="Create New Car" (click)="addCar()" [disabled]="!myForm.valid">Create New Car</button>
+      </p>
+      <p>
+        <a class="button" (click)="goHome()">Cancel</a>
+      </p>
+    </form>
+  </div>
+
+  <div *ngSwitchCase="'update'">
+    <h1>Update Car</h1>
+    <form [formGroup]="myForm">
+      <div>
+        <label for="brand">Brand</label>
+        <input name="brand" type="text"  formControlName="brand">
+        <div class="error-div" *ngIf="brand?.invalid && brand?.dirty">
+          <small class="text-danger" *ngIf="brand?.errors?.['required']">Brand is required</small>
+          <small class="text-danger" *ngIf="brand?.errors?.['minlength']">Brand must have minim 2 letters</small>
+          <small class="text-danger" *ngIf="brand?.errors?.['pattern']">First letter must be uppercase <br> Must not contain numbers and spaces</small>    </div>
+      </div>
+      <div>
+        <label for="model">Model</label>
+        <input name="model" type="text"  formControlName="model">
+        <div class="error-div" *ngIf="model?.invalid && model?.dirty">
+          <small class="text-danger" *ngIf="model?.errors?.['required']">Model is required</small>
+          <small class="text-danger" *ngIf="model?.errors?.['minlength']">Model must have minim 2 letters</small>
+          <small class="text-danger" *ngIf="model?.errors?.['pattern']">Model must not contain spaces</small>
+        </div>
+      </div>
+      <div>
+        <label for="weight">Weight</label>
+        <input name="weight" type="text" formControlName="weight">
+        <div class="error-div" *ngIf="weight?.invalid && weight?.dirty">
+          <small class="text-danger" *ngIf="weight?.errors?.['required']">Weight is required</small>
+          <small class="text-danger" *ngIf="weight?.errors?.['min']">Weight must be minimum 500</small>
+          <small class="text-danger" *ngIf="weight?.errors?.['pattern']">Weight must be numeric</small>
+        </div>
+      </div>
+      <p>
+        <label for="availability">Availability</label>
+        <input name="availability" type="checkbox" formControlName="availability">
+      </p>
+      <p>
+        <a class="button button-to-save" (click)="updateCar()">Save car</a>
+      </p>
+      <p>
+        <a class="button button-to-home" (click)="goHome()">Cancel</a>
+      </p>
+      <p>
+        <a class="button button-to-delete" (click)="deleteCar()">Delete</a>
+      </p>
+    </form>
+  </div>
+
+</div>
+

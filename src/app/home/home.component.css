@@ -1,0 +1,10 @@
+button{
+  border: 2px solid #01b189;
+  background-color: #01b189;
+  border-radius: 10px;
+}
+
+.error-div{
+  display: flex;
+  flex-direction: column;
+}
