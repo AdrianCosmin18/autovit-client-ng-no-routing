@@ -96,7 +96,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   updateCar(){
-    let car: Car = this.myForm.value;
+    // let car: Car = this.myForm.value;
+    let car: Car = {
+      id: this.myForm.get('id')?.value,
+      brand: this.myForm.get('brand')?.value,
+      model: this.myForm.get('model')?.value,
+      weight: this.myForm.get('weight')?.value,
+      isAvailable: this.myForm.get('availability')?.value
+    };
     console.log(car);
 
     this.subscription.add(
